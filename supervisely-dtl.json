@@ -1,0 +1,58 @@
+[
+  {
+    "dst": "$data01",
+    "src": [
+      "Covid_Project/X-Rays"
+    ],
+    "action": "data",
+    "settings": {
+      "classes_mapping": "default"
+    }
+  },
+  {
+    "dst": [
+      "$totrain",
+      "$toval"
+    ],
+    "src": [
+      "$data01"
+    ],
+    "action": "if",
+    "settings": {
+      "condition": {
+        "probability": 0.95
+      }
+    }
+  },
+  {
+    "dst": "$train",
+    "src": [
+      "$totrain"
+    ],
+    "action": "tag",
+    "settings": {
+      "tag": "train",
+      "action": "add"
+    }
+  },
+  {
+    "dst": "$val",
+    "src": [
+      "$toval"
+    ],
+    "action": "tag",
+    "settings": {
+      "tag": "val",
+      "action": "add"
+    }
+  },
+  {
+    "dst": "Covid_Project-train-val",
+    "src": [
+      "$train",
+      "$val"
+    ],
+    "action": "supervisely",
+    "settings": {}
+  }
+]
